@@ -1,0 +1,23 @@
+services:
+  # Backend Node.js Web Service on Render
+  - type: web
+    name: ezzchat-backend
+    env: node
+    region: frankfurt
+    buildCommand: "npm install && npx prisma generate && npx prisma db push"
+    startCommand: "npm start"
+    envVars:
+      - key: DATABASE_URL
+        sync: false # Set this manually in Render dashboard
+      - key: REDIS_URL
+        sync: false # Set this manually in Render dashboard
+      - key: LIVEKIT_URL
+        sync: false # Set this manually in Render dashboard
+      - key: LIVEKIT_API_KEY
+        sync: false # Set this manually in Render dashboard
+      - key: LIVEKIT_API_SECRET
+        sync: false # Set this manually in Render dashboard
+      - key: JWT_SECRET
+        generateValue: true
+      - key: PORT
+        value: 8000
