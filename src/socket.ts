@@ -45,10 +45,11 @@ export const initSockets = async (server: http.Server) => {
     });
 
     socket.on('group_message', async (data) => {
-      const { groupId, encryptedText } = data;
+      const { groupId, encryptedText, senderName } = data;
       // Broadcast to Redis Channel so ALL servers get the message
       await redisPub.publish(`channel:group:${groupId}`, JSON.stringify({
         senderId: userId,
+        senderName,
         groupId,
         encryptedText,
         timestamp: Date.now()
